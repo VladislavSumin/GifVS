@@ -1,14 +1,11 @@
 package ru.vladislavsumin.gifvs.ui.gif
 
 import android.util.Log
-import dagger.Provides
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import moxy.MvpPresenter
 import ru.vladislavsumin.gifvs.api.GifApi
 import ru.vladislavsumin.gifvs.ui.base.BasePresenter
 import javax.inject.Inject
-import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton

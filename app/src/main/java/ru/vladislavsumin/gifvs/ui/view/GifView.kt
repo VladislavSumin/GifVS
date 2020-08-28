@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import ru.vladislavsumin.gifvs.R
 import ru.vladislavsumin.gifvs.entity.Gif
 
@@ -36,14 +38,25 @@ class GifView : FrameLayout {
     }
 
     private lateinit var descriptionText: TextView
+    private lateinit var image: ImageView
 
 
     private fun init() {
         LayoutInflater.from(this.context).inflate(R.layout.view_gif, this, true)
         descriptionText = findViewById(R.id.view_gif_description)
+        image = findViewById(R.id.view_gif_image)
+
     }
 
     fun setGif(gif: Gif) {
         descriptionText.text = gif.description
+
+        Glide
+            .with(this)
+            .load(gif.gifURL)
+            .centerCrop()
+            //TODO add placeholder
+            //.placeholder(R.drawable.loading_spinner)
+            .into(image);
     }
 }
