@@ -1,0 +1,29 @@
+package ru.vladislavsumin.gifvs.domain.impl
+
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.vladislavsumin.gifvs.api.GifApi
+import ru.vladislavsumin.gifvs.dao.GifDao
+import ru.vladislavsumin.gifvs.domain.GifManager
+import ru.vladislavsumin.gifvs.entity.Gif
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class GifManagerImpl @Inject constructor(
+    private val gifApi: GifApi,
+    private val gifDao: GifDao
+) : GifManager {
+
+    override fun getLast(): Single<Gif> {
+        return gifDao.getLast()
+            .switchIfEmpty(
+                gifApi.getRandom()
+                    .doOnSuccess {
+
+                    }
+            )
+            .subscribeOn(Schedulers.io())
+    }
+}
