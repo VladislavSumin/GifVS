@@ -45,6 +45,21 @@ class GifPresenter @Inject constructor(
             })
     }
 
+    fun onClickBack() {
+        val gif = currentGif ?: return
+        if (gif.position == 0) return
+        loadGifDisposable?.dispose()
+        loadGifDisposable =
+            gifManager.getByPosition(gif.position - 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    showGif(it)
+                }, {
+                    //TODO add err handling
+                    Log.e(TAG, "error on load prev gif info", it)
+                })
+    }
+
     private fun showGif(gif: Gif) {
         currentGif = gif
         viewState.setGif(gif)

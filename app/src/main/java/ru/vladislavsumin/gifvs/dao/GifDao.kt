@@ -18,7 +18,7 @@ interface GifDao {
     @Query("SELECT * FROM entities ORDER BY position DESC LIMIT 1")
     fun getLastRx(): Maybe<Gif>
 
-    @Query("SELECT * FROM entities ORDER BY position LIMIT 1")
+    @Query("SELECT * FROM entities ORDER BY position DESC LIMIT 1")
     fun getLast(): Optional<Gif>
 
     @Insert
