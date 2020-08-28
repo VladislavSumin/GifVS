@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "entities")
 data class Gif(
     @PrimaryKey(autoGenerate = false)
-    val id: Long,
-    val description: String,
-    val gifURL: String,
-    val position: Int
+    val id: Long = 0,
+    val description: String = "",
+    val gifURL: String = "",
+    val position: Int = 0
 )

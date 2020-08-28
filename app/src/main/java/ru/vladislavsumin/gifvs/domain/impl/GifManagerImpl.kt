@@ -1,6 +1,5 @@
 package ru.vladislavsumin.gifvs.domain.impl
 
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.vladislavsumin.gifvs.api.GifApi
@@ -17,12 +16,9 @@ class GifManagerImpl @Inject constructor(
 ) : GifManager {
 
     override fun getLast(): Single<Gif> {
-        return gifDao.getLast()
+        return gifDao.getLastRx()
             .switchIfEmpty(
-                gifApi.getRandom()
-                    .doOnSuccess {
-
-                    }
+                gifApi.getRandom().flatMap(gifDao::addNewEntityRx)
             )
             .subscribeOn(Schedulers.io())
     }
