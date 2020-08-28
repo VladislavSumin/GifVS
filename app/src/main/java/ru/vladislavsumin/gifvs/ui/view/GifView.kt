@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import ru.vladislavsumin.gifvs.R
+import ru.vladislavsumin.gifvs.entity.Gif
 
 class GifView : FrameLayout {
     constructor(context: Context) : super(context) {
@@ -33,8 +35,15 @@ class GifView : FrameLayout {
         init()
     }
 
+    private lateinit var descriptionText: TextView
+
 
     private fun init() {
         LayoutInflater.from(this.context).inflate(R.layout.view_gif, this, true)
+        descriptionText = findViewById(R.id.view_gif_description)
+    }
+
+    fun setGif(gif: Gif) {
+        descriptionText.text = gif.description
     }
 }
