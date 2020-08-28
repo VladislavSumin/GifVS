@@ -34,7 +34,13 @@ class GifFragment : MvpAppCompatFragment(), GifView {
         return inflater.inflate(R.layout.fragment_gif, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fragment_gif_btn_next.setOnClickListener { presenter.onClickNext() }
+    }
+
     override fun setGif(gif: Gif) {
         fragment_gif_card.setGif(gif)
+        fragment_gif_btn_back.isEnabled = gif.position > 0
     }
 }

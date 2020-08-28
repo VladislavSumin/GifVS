@@ -12,10 +12,10 @@ import java.util.*
 
 @Dao
 interface GifDao {
-    //    @Query("SELECT * FROM entities where position = :position LIMIT 1")
-//    fun getByPosition(position: Int): Maybe<Gif>
-//
-    @Query("SELECT * FROM entities ORDER BY position LIMIT 1")
+    @Query("SELECT * FROM entities where position = :position LIMIT 1")
+    fun getByPositionRx(position: Int): Maybe<Gif>
+
+    @Query("SELECT * FROM entities ORDER BY position DESC LIMIT 1")
     fun getLastRx(): Maybe<Gif>
 
     @Query("SELECT * FROM entities ORDER BY position LIMIT 1")

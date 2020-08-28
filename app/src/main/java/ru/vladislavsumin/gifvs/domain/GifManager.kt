@@ -5,4 +5,5 @@ import ru.vladislavsumin.gifvs.entity.Gif
 
 interface GifManager {
     fun getLast(): Single<Gif>
+    fun getNext(previousGif: Gif): Single<Gif>
 }
