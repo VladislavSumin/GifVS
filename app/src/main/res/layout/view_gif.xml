@@ -27,12 +27,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
 
+        <TextView
+            android:id="@+id/view_gif_err_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/can_not_load_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/view_gif_err_retry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/retry"
+            android:autoLink="all"
+            android:linksClickable="false"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toBottomOf="@id/view_gif_err_text" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@drawable/black_gradient"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view_gif_description" />
+            app:layout_constraintTop_toTopOf="@id/view_gif_description"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/view_gif_description"

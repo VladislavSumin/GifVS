@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.solver.GoalRow
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -43,9 +44,13 @@ class GifView : FrameLayout {
         init()
     }
 
+    private var gif: Gif? = null
+
     private lateinit var descriptionText: TextView
     private lateinit var image: ImageView
     private lateinit var progressBar: ProgressBar
+    private lateinit var errorText: TextView
+    private lateinit var errorRetry: TextView
 
     private val glideLoadListener = object : RequestListener<Drawable> {
         override fun onLoadFailed(
@@ -54,7 +59,9 @@ class GifView : FrameLayout {
             target: Target<Drawable>?,
             isFirstResource: Boolean
         ): Boolean {
-            //Todo
+            progressBar.visibility = GONE
+            errorText.visibility = VISIBLE
+            errorRetry.visibility = VISIBLE
             return false
         }
 
@@ -71,22 +78,54 @@ class GifView : FrameLayout {
 
     }
 
-
     private fun init() {
         LayoutInflater.from(this.context).inflate(R.layout.view_gif, this, true)
         descriptionText = findViewById(R.id.view_gif_description)
         image = findViewById(R.id.view_gif_image)
         progressBar = findViewById(R.id.view_gif_progress)
+        errorText = findViewById(R.id.view_gif_err_text)
+        errorRetry = findViewById(R.id.view_gif_err_retry)
+        errorRetry.setOnClickListener { onClickReload() }
+    }
 
+    private fun onClickReload() {
+        if (gif == null) {
+            //TODO
+        } else {
+            reloadGif(gif!!)
+        }
     }
 
     fun setGif(gif: Gif) {
+        this.gif = gif
         descriptionText.text = gif.description
+        reloadGif(gif)
+    }
+
+    fun showLoadingState() {
+        gif = null
         progressBar.visibility = VISIBLE
+        errorText.visibility = GONE
+        errorRetry.visibility = GONE
+        image.setImageDrawable(null)
+    }
+
+    fun showLoadingErrorState() {
+        gif = null
+        progressBar.visibility = GONE
+        errorText.visibility = VISIBLE
+        errorRetry.visibility = VISIBLE
+        image.setImageDrawable(null)
+    }
+
+    private fun reloadGif(gif: Gif) {
+        progressBar.visibility = VISIBLE
+        errorText.visibility = GONE
+        errorRetry.visibility = GONE
 
         Glide
             .with(this)
-            .load(gif.gifURL)
+            .load(gif.gifURL + "aaaa")
             .centerCrop()
             .addListener(glideLoadListener)
             .into(image)

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GifVS</string>
+    <string name="can_not_load_picture">Не удалось загрузить изображение</string>
+    <string name="retry"><u>Повторить</u></string>
 </resources>
