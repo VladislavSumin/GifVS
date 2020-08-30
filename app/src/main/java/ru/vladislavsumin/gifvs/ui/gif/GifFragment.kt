@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class GifFragment : MvpAppCompatFragment(), GifView {
     companion object {
-        private const val ANIMATION_DURATION = 300L
+        private const val ANIMATION_DURATION = 250L
     }
 
     private lateinit var primaryGifCardView: GifCardView
@@ -64,6 +64,9 @@ class GifFragment : MvpAppCompatFragment(), GifView {
             if (isAnimate) return@setOnClickListener
             presenter.onClickBack()
         }
+
+        primaryGifCardView.setOnClickRetryListener { presenter.onCLickRetry() }
+        secondaryGifCardView.setOnClickRetryListener { presenter.onCLickRetry() }
     }
 
     override fun setState(state: GifViewState) {

@@ -24,7 +24,7 @@ class GifPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadGif(gifManager.getLast(), AnimationDirection.NONE)
+        onCLickRetry()
     }
 
     fun onClickNext() {
@@ -50,7 +50,7 @@ class GifPresenter @Inject constructor(
         viewState.setState(
             GifViewState(
                 GifLoadingState.LOADING,
-                isBackButtonEnabled = true, //TODO
+                isBackButtonEnabled = lastSuccessLoadedGifPosition > 0,
                 animationDirection = animationDirection
             )
         )
@@ -78,7 +78,7 @@ class GifPresenter @Inject constructor(
         viewState.setState(
             GifViewState(
                 state = GifLoadingState.ERROR,
-                isBackButtonEnabled = true //TODO
+                isBackButtonEnabled = lastSuccessLoadedGifPosition > 0
             )
         )
     }
@@ -87,5 +87,9 @@ class GifPresenter @Inject constructor(
     override fun onDestroy() {
         loadGifDisposable?.dispose()
         super.onDestroy()
+    }
+
+    fun onCLickRetry() {
+        loadGif(gifManager.getLast(), AnimationDirection.NONE)
     }
 }
