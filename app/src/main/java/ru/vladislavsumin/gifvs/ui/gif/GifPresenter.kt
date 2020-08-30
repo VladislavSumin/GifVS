@@ -24,13 +24,13 @@ class GifPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadGif(gifManager.getLast())
+        loadGif(gifManager.getLast(), AnimationDirection.NONE)
     }
 
     fun onClickNext() {
         val currentPosition = currentGif?.position ?: lastSuccessLoadedGifPosition
         val gif = currentGif ?: return
-        loadGif(gifManager.getByPosition(currentPosition + 1))
+        loadGif(gifManager.getByPosition(currentPosition + 1), AnimationDirection.NEXT)
     }
 
     fun onClickBack() {
@@ -43,14 +43,15 @@ class GifPresenter @Inject constructor(
             else lastSuccessLoadedGifPosition
         }
 
-        loadGif(gifManager.getByPosition(previousGifPosition))
+        loadGif(gifManager.getByPosition(previousGifPosition), AnimationDirection.PREVIOUS)
     }
 
-    private fun loadGif(gifSource: Single<Gif>) {
+    private fun loadGif(gifSource: Single<Gif>, animationDirection: AnimationDirection) {
         viewState.setState(
             GifViewState(
                 GifLoadingState.LOADING,
-                true, //TODO
+                isBackButtonEnabled = true, //TODO
+                animationDirection = animationDirection
             )
         )
         currentGif = null

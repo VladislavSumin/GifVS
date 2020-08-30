@@ -5,10 +5,18 @@
     android:layout_height="match_parent">
 
 
-    <ru.vladislavsumin.gifvs.ui.view.GifView
-        android:id="@+id/fragment_gif_card"
+    <ru.vladislavsumin.gifvs.ui.view.GifCardView
+        android:id="@+id/fragment_gif_card_1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_gif_btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ru.vladislavsumin.gifvs.ui.view.GifCardView
+        android:id="@+id/fragment_gif_card_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/fragment_gif_btn_back"
         app:layout_constraintTop_toTopOf="parent" />
 

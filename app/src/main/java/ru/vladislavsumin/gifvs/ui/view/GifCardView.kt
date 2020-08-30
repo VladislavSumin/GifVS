@@ -16,7 +16,7 @@ import com.bumptech.glide.request.target.Target
 import ru.vladislavsumin.gifvs.R
 import ru.vladislavsumin.gifvs.entity.Gif
 
-class GifView : FrameLayout {
+class GifCardView : FrameLayout {
     constructor(context: Context) : super(context) {
         init()
     }
