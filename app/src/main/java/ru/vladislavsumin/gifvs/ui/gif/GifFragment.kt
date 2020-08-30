@@ -29,7 +29,7 @@ class GifFragment : MvpAppCompatFragment(), GifView {
     private lateinit var secondaryGifCardView: GifCardView
 
     /**
-     * This is not very good solution to block any action when playing animation,
+     * This is not good solution to block any action when playing animation,
      * but I`m hav`t time to write normal solution with all animation cases
      */
     private var isAnimate = false
