@@ -40,8 +40,12 @@ class GifFragment : MvpAppCompatFragment(), GifView {
         fragment_gif_btn_back.setOnClickListener { presenter.onClickBack() }
     }
 
-    override fun setGif(gif: Gif) {
-        fragment_gif_card.setGif(gif)
-        fragment_gif_btn_back.isEnabled = gif.position > 0
+    override fun setState(state: GifViewState) {
+        when (state.state) {
+            GifLoadingState.LOADING -> fragment_gif_card.showLoadingState()
+            GifLoadingState.LOADED -> fragment_gif_card.setGif(state.gif!!)
+            GifLoadingState.ERROR -> fragment_gif_card.showLoadingErrorState()
+        }
+        fragment_gif_btn_back.isEnabled = state.isBackButtonEnabled
     }
 }

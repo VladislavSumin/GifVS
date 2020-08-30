@@ -4,12 +4,10 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.constraintlayout.solver.GoalRow
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -45,6 +43,7 @@ class GifView : FrameLayout {
     }
 
     private var gif: Gif? = null
+    private var callback: (() -> Unit)? = null
 
     private lateinit var descriptionText: TextView
     private lateinit var image: ImageView
@@ -90,7 +89,7 @@ class GifView : FrameLayout {
 
     private fun onClickReload() {
         if (gif == null) {
-            //TODO
+            callback?.invoke()
         } else {
             reloadGif(gif!!)
         }
@@ -108,6 +107,7 @@ class GifView : FrameLayout {
         errorText.visibility = GONE
         errorRetry.visibility = GONE
         image.setImageDrawable(null)
+        descriptionText.text = ""
     }
 
     fun showLoadingErrorState() {
@@ -116,6 +116,7 @@ class GifView : FrameLayout {
         errorText.visibility = VISIBLE
         errorRetry.visibility = VISIBLE
         image.setImageDrawable(null)
+        descriptionText.text = ""
     }
 
     private fun reloadGif(gif: Gif) {
@@ -125,9 +126,13 @@ class GifView : FrameLayout {
 
         Glide
             .with(this)
-            .load(gif.gifURL + "aaaa")
+            .load(gif.gifURL)
             .centerCrop()
             .addListener(glideLoadListener)
             .into(image)
+    }
+
+    fun setOnClickRetryListener(listener: (() -> Unit)?) {
+        callback = listener
     }
 }
